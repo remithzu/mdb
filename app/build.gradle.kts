@@ -7,12 +7,6 @@ plugins {
     kotlin("kapt")
 }
 
-val getPropertiesFile: (String) -> Properties = { path ->
-    val properties = Properties()
-    properties.load(FileInputStream(file(path)))
-    properties
-}
-
 android {
     namespace = "com.robi.mdb"
     compileSdk = 34
@@ -28,16 +22,7 @@ android {
     }
 
     buildTypes {
-        getByName("debug") {
-            getPropertiesFile("endpoint.properties").forEach{
-                buildConfigField(type = "String", name = it.key.toString(), value = it.value.toString())
-            }
-        }
-
         getByName("release") {
-            getPropertiesFile("endpoint.properties").forEach{
-                buildConfigField(type = "String", name = it.key.toString(), value = it.value.toString())
-            }
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -67,6 +52,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     //noinspection KaptUsageInsteadOfKsp
     kapt(libs.androidx.room.compiler)
 
