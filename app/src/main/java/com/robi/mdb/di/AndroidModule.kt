@@ -5,6 +5,9 @@ import android.content.SharedPreferences
 import androidx.room.Room
 import com.robi.mdb.R
 import com.robi.mdb.data.AppDatabase
+import com.robi.mdb.networks.MovieApi
+import com.robi.mdb.repository.MovieRepository
+import com.robi.mdb.repository.MovieRepositoryImpl
 import com.robi.mdb.ui.detail.DetailViewModel
 import com.robi.mdb.utils.SharedPreferencesHelper
 import org.koin.android.compat.ScopeCompat.viewModel
@@ -21,6 +24,10 @@ val AppModule = module {
             "mdb"
         ).allowMainThreadQueries().build()
     }
+}
+
+val ApiModule = module {
+    single<MovieApi> { MovieApi.Creator(get()).getInstance() }
 }
 
 val SharedModule = module {
@@ -40,7 +47,7 @@ val DaoModule = module {
 }
 
 val RepositoryModule = module {
-//    single<UserRepository> { UserRepositoryImpl(get()) }
+    single<MovieRepository> { MovieRepositoryImpl(get()) }
     /*single<UserRepository> { UserRepositoryImpl(get()) }
     single<ManhwaRepository> { ManhwaRepositoryImpl(get()) }*/
 }

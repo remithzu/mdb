@@ -1,5 +1,5 @@
 [versions]
-agp = "8.3.0-rc01"
+agp = "8.3.0-beta02"
 kotlin = "1.9.0"
 coreKtx = "1.12.0"
 junit = "4.13.2"
@@ -48,7 +48,7 @@ squareup-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", versi
 squareup-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit2" }
 squareup-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "retrofit2" }
 squareup-okhttp-bom = { group = "com.squareup.okhttp3", name = "okhttp-bom", version.ref = "okhttp3" }
-squareup-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor"}
+squareup-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp3"}
 
 # Dependencies Injection Hilt
 google-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
