@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import androidx.room.Room
 import com.robi.mdb.R
 import com.robi.mdb.data.AppDatabase
+import com.robi.mdb.networks.ApiProvider
 import com.robi.mdb.networks.MovieApi
 import com.robi.mdb.repository.MovieRepository
 import com.robi.mdb.repository.MovieRepositoryImpl
@@ -27,7 +28,7 @@ val AppModule = module {
 }
 
 val ApiModule = module {
-    single<MovieApi> { MovieApi.Creator(get()).getInstance() }
+    single { ApiProvider }
 }
 
 val SharedModule = module {
@@ -38,22 +39,12 @@ val SharedModule = module {
 val DaoModule = module {
     single { get<AppDatabase>().BookMarkDao() }
     single { get<AppDatabase>().GenreIdsDao() }
-    /*single { get<AppDatabase>().UserDao() }
-    single { get<AppDatabase>().ManhwaDao() }
-    single { get<AppDatabase>().PopularDao() }
-    single { get<AppDatabase>().RecommendDao() }
-    single { get<AppDatabase>().HistoryDao() }
-    single { get<AppDatabase>().ChaptersDao() }*/
 }
 
 val RepositoryModule = module {
-    single<MovieRepository> { MovieRepositoryImpl(get()) }
-    /*single<UserRepository> { UserRepositoryImpl(get()) }
-    single<ManhwaRepository> { ManhwaRepositoryImpl(get()) }*/
+    single<MovieRepository> { MovieRepositoryImpl() }
 }
 
 val ViewModelModule = module {
     viewModel { DetailViewModel(get()) }
-    /*viewModel { UserViewModel(get()) }
-    viewModel { ManhwaViewModel(get()) }*/
 }

@@ -26,20 +26,20 @@ class HomeFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getDetailMovie(1212073)
-
-        viewModel.movieDetail.observe(viewLifecycleOwner) {
-            when (it) {
+        viewModel.movieDetail.observe(viewLifecycleOwner) { movieDetailState ->
+            when(movieDetailState) {
                 is NetworkState.Loading -> {
-                    Log.e("Activity", "Loading")
+                    Log.e("Fragment", "NetworkState:: Loading")
                 }
                 is NetworkState.Success -> {
-                    Log.e("Activity", it.data.toString())
+                    Log.e("Fragment", "NetworkState:: Success:: ${movieDetailState.data}")
                 }
                 else -> {
-                    Log.e("Activity", it.message.toString())
+                    Log.e("Fragment", "NetworkState:: Error:: ${movieDetailState.message?.message}")
                 }
             }
+        }.also {
+            viewModel.getDetailMovie(1212073)
         }
     }
 }
