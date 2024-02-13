@@ -1,12 +1,18 @@
 package com.robi.mdb.networks.intercepter
 
-class ServerBusyIntercepter (val context: Context) : Interceptor {
+import android.content.Context
+import okhttp3.Interceptor
+import okhttp3.Response
+import okhttp3.ResponseBody
+import retrofit2.Retrofit
 
-    private var retrofit: Retrofit? = null
+class ServerBusyIntercepter (val context: Context) /*: Interceptor*/ {
+
+    /*private var retrofit: Retrofit? = null
     private var busyDialog: ServerBusySheetDialog = ServerBusySheetDialog()
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val url = chain.request().url
+        val url = chain.request().url()
         val request = chain.request()
         val response = chain.proceed(request)
 
@@ -14,9 +20,9 @@ class ServerBusyIntercepter (val context: Context) : Interceptor {
 
         )
 
-        val _url = url.encodedPath
+        val _url = url.encodedPath()
         when {
-            response.code in 503..505 -> {
+            response.code() in 503..505 -> {
                 val match = whitelist.filter { _url.contains(it, true) }
                 if (match.isEmpty()) {
                     RxBus.publish(ServerBusySheetDialog())
@@ -34,5 +40,5 @@ class ServerBusyIntercepter (val context: Context) : Interceptor {
 
     private inline fun <reified T> getError(body: ResponseBody?): T? = body?.let {
         retrofit?.responseBodyConverter<T>(T::class.java, T::class.java.annotations)?.convert(it)
-    }
+    }*/
 }

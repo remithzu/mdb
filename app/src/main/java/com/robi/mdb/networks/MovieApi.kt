@@ -1,23 +1,21 @@
 package com.robi.mdb.networks
 
 import android.content.Context
-import com.facebook.shimmer.BuildConfig
 import com.google.gson.Gson
 import com.robi.mdb.models.Actor
 import com.robi.mdb.models.Genre
 import com.robi.mdb.models.Movie
 import com.robi.mdb.models.MovieDetail
 import com.robi.mdb.models.Video
-import com.robi.mdb.networks.intercepter.ServerBusyIntercepter
 import com.robi.mdb.utils.Const
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import java.util.concurrent.TimeUnit
 
 interface MovieApi {
     @GET("/3/discover/movie")
@@ -59,21 +57,19 @@ interface MovieApi {
 
     class Creator(val context: Context) {
         //@Inject
-        companion object {
-            var movieApi: MovieApi? = null
-            private val client = OkHttpClient.Builder().build()
-
-            fun getInstance() : MovieApi {
-                if (movieApi == null) {
-                    val retrofit = Retrofit.Builder()
-                        .baseUrl(Const.HOST)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .client(client)
-                        .build()
-                    movieApi = retrofit.create(MovieApi::class.java)
-                }
-                return movieApi!!
-            }
+        fun getInstance() : MovieApi {
+            val logging = HttpLoggingInterceptor()
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+            val api: MovieApi?
+            val client = OkHttpClient.Builder()
+            val retrofit = Retrofit
+                .Builder()
+                .baseUrl(Const.HOST)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(client)
+                .build()
+            return retrofit.create(MovieApi::class.java)
         }
     }
 }

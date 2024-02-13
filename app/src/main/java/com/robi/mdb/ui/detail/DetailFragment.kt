@@ -48,7 +48,7 @@ class DetailFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViewModel()
-        movieId = arguments?.getInt("movie_id")?: 0
+        movieId = arguments?.getInt("movie_id")?: 1212073
         adapter.actionListener = object: Adapter.OnActionListener {
             override fun onAction(result: Result) {
                 TODO("Not yet implemented")
@@ -61,8 +61,8 @@ class DetailFragment: Fragment() {
         adapter2.notifyDataSetChanged()
 
         viewModel.getDetailMovie(movieId)
-        viewModel.getActor(movieId)
-        viewModel.getTrailer(movieId)
+//        viewModel.getActor(movieId)
+//        viewModel.getTrailer(movieId)
 
         binding.tvPlayTrailer.setOnClickListener {
             if (trailerUrl!=null) {
@@ -84,7 +84,7 @@ class DetailFragment: Fragment() {
 
     @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
     private fun setupViewModel() {
-        viewModel.movieDetailRepository.observe(viewLifecycleOwner) {
+        viewModel.movieDetail.observe(viewLifecycleOwner) {
             when (it) {
                 is NetworkState.Loading -> {
                 }
@@ -117,7 +117,7 @@ class DetailFragment: Fragment() {
             }
         }
 
-        viewModel.movieActorRepository.observe(viewLifecycleOwner) {
+        viewModel.movieActor.observe(viewLifecycleOwner) {
             when (it) {
                 is NetworkState.Loading -> {
                 }
@@ -133,7 +133,7 @@ class DetailFragment: Fragment() {
             }
         }
 
-        viewModel.movieTrailerRepository.observe(viewLifecycleOwner) {
+        viewModel.movieTrailer.observe(viewLifecycleOwner) {
             when (it) {
                 is NetworkState.Loading -> {
                 }

@@ -3,6 +3,7 @@ package com.robi.mdb
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import com.robi.mdb.di.ApiModule
 import com.robi.mdb.di.AppModule
 import com.robi.mdb.di.DaoModule
 import com.robi.mdb.di.RepositoryModule
@@ -25,6 +26,7 @@ class Mdb: Application() {
             modules(
                 listOf(
                     AppModule,
+                    ApiModule,
                     SharedModule,
                     DaoModule,
                     RepositoryModule,

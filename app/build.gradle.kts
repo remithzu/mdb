@@ -58,7 +58,8 @@ dependencies {
 
     implementation(libs.squareup.retrofit)
     implementation(libs.squareup.converter.gson)
-    implementation(libs.squareup.retrofit)
+    implementation(libs.squareup.okhttp)
+    implementation(libs.squareup.logging.interceptor)
 
     implementation(libs.koin.core)
     implementation(libs.koin.android)
